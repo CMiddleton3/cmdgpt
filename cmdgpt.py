@@ -13,6 +13,13 @@ CMDGPT_APIKEY_FILENAME = "cmdgpt.key"
 CMDGPT_APIKEY = os.path.join(CMDGPT_DIR,CMDGPT_APIKEY_FILENAME)
 
 
+def get_messages(resp):
+    for message in resp.json()["choices"]:
+        all_message = dict()
+        all_message["message"] = message["message"]["content"]
+
+    return all_message
+
 def create_cmdgpt_dir():
     if not os.path.exists(CMDGPT_DIR):
         os.makedirs(CMDGPT_DIR)
@@ -110,7 +117,6 @@ if verbose:
     exit(0)
 
 # print("Response: \n")
-
 for resp in response.json()["choices"]:
     if json_output:
         all_message = dict()
